@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TouchTunes tech assignment</string>
+    <string name="a11y_search_btn">Search Button</string>
+    <string name="search_term_hint">Band / Singer / Artist</string>
+</resources>

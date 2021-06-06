@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TouchTunes tech assignment</string>
+    <string name="a11y_search_btn">Search Button</string>
+    <string name="search_bar_hint">Band / Singer / Artist</string>
+    <string name="close">Ok</string>
+</resources>
