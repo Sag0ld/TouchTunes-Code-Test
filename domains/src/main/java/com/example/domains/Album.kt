@@ -4,12 +4,13 @@ import android.os.Parcel
 import android.os.Parcelable
 import androidx.annotation.Keep
 import java.text.SimpleDateFormat
+import java.util.*
 
 @Keep
 class Album(
     val name: String,
     val artworkUrl: String,
-    val releaseDate: String,
+    val releaseDate: Date,
     val genre: String,
     val price: Float,
     val currency: String,
@@ -19,18 +20,17 @@ class Album(
     constructor(parcel: Parcel) : this(
         parcel.readString().orEmpty(),
         parcel.readString().orEmpty(),
-        parcel.readString().orEmpty(),
+        parcel.readSerializable() as? Date ?: Date(),
         parcel.readString().orEmpty(),
         parcel.readFloat(),
         parcel.readString().orEmpty(),
         parcel.readString().orEmpty()
     )
 
-
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(name)
         parcel.writeString(artworkUrl)
-        parcel.writeString(releaseDate)
+        parcel.writeSerializable(releaseDate)
         parcel.writeString(genre)
         parcel.writeFloat(price)
         parcel.writeString(currency)

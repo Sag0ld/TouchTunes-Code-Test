@@ -7,7 +7,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.domains.Album
 import com.example.domains.Resource
 import com.example.services.SearchService
-import com.example.ui.NetworkHelper
+import com.example.services.NetworkHelper
 import kotlinx.coroutines.launch
 
 class SearchViewModel(

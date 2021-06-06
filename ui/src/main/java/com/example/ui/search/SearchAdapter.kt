@@ -13,7 +13,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.domains.Album
 import com.example.ui.R
 import com.example.ui.databinding.SearchResultBinding
-import com.example.ui.toDate
 import com.example.ui.toFormattedDate
 
 class SearchAdapter(private val context: Context, searchResult: List<Album>? = null) :
@@ -35,7 +34,7 @@ class SearchAdapter(private val context: Context, searchResult: List<Album>? = n
                 )
                 .into(binding.artwork)
             binding.title.text = result.name
-            binding.releaseDate.text = result.releaseDate.toDate().toFormattedDate()
+            binding.releaseDate.text = result.releaseDate.toFormattedDate()
             binding.root.setOnClickListener {
                 val navController = (context as Activity).findNavController(R.id.nav_host_fragment)
                 navController

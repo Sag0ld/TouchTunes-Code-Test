@@ -15,7 +15,7 @@ import kotlin.Exception
 
 class SearchRepository(private val itunesClient: ItunesClientHelper) {
 
-    suspend fun getAlbums(term: CharSequence) :LiveData<Resource<List<Album>>>  {
+    suspend fun getAlbums(term: CharSequence): LiveData<Resource<List<Album>>> {
         try {
             val albumResponse = itunesClient.searchForAlbums(term)
             if (albumResponse.isSuccessful) {
@@ -25,7 +25,7 @@ class SearchRepository(private val itunesClient: ItunesClientHelper) {
                 return MutableLiveData(ResponseHandler().handleSuccess(albums.orEmpty()))
             }
         } catch (e: Exception) {
-           return MutableLiveData(ResponseHandler().handleException(e, emptyList<Album>()))
+            return MutableLiveData(ResponseHandler().handleException(e, emptyList<Album>()))
         }
         return MutableLiveData(null)
     }
@@ -55,13 +55,17 @@ open class ResponseHandler {
 
 
 private fun ItunesAlbum.toAlbum(): Album {
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.CANADA)
+
     return Album(
         name = collectionName,
         artworkUrl = artworkUrl100,
-        releaseDate = releaseDate,
+        releaseDate = dateFormat.parse(releaseDate) ?: Date(),
         genre = primaryGenreName,
         price = collectionPrice,
         currency = currency,
         copyright = copyright
     )
 }
+
+
