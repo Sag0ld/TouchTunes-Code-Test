@@ -4,5 +4,5 @@ import com.example.services.SearchService
 import org.koin.dsl.module
 
 val serviceModule = module {
-    single { SearchService(get()) }
+    single { SearchService(searchRepository = get()) }
 }

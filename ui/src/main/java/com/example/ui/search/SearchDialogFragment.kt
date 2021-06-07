@@ -25,14 +25,14 @@ class SearchDialogFragment : DialogFragment() {
         )
         val album = args.result
 
-        dialog.setContentView(binding.root)
         binding.copyright.text = album.copyright
         binding.genre.text = album.genre
         binding.price.text = album.formattedPrice()
         binding.closeBtn.setOnClickListener {
             dismiss()
         }
-
+        
+        dialog.setContentView(binding.root)
         return dialog
     }
 }

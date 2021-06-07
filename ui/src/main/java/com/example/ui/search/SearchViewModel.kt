@@ -11,13 +11,14 @@ import com.example.services.NetworkHelper
 import kotlinx.coroutines.launch
 
 class SearchViewModel(
-    private val itunesClient: SearchService,
+    private val searchService: SearchService,
     private val networkHelper: NetworkHelper
 ) : ViewModel() {
 
     val results = MutableLiveData<Resource<List<Album>?>>(
         Resource.success(emptyList())
     )
+
     private var latestTerm: CharSequence = ""
 
     fun onQueryTextListener() = object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
@@ -41,7 +42,7 @@ class SearchViewModel(
             results.value = Resource.loading(null)
 
             viewModelScope.launch {
-                results.postValue(itunesClient.searchForAlbums(term).value)
+                results.postValue(searchService.searchForAlbums(term).value)
             }
         } else {
             results.value = Resource.error("No internet connection")

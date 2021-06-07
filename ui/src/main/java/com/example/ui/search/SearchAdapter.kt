@@ -11,13 +11,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.domains.Album
+import com.example.domains.Entity
 import com.example.ui.R
 import com.example.ui.databinding.SearchResultBinding
 import com.example.ui.toFormattedDate
 
-class SearchAdapter(private val context: Context, searchResult: List<Album>? = null) :
+class SearchAdapter(private val context: Context, searchResult: List<Entity>? = null) :
     RecyclerView.Adapter<SearchViewHolder>() {
-    private var _searchResult: MutableList<Album> = searchResult.orEmpty().toMutableList()
+    private var _searchResult: MutableList<Entity> = searchResult.orEmpty().toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         val searchResultBinding =
@@ -27,26 +28,33 @@ class SearchAdapter(private val context: Context, searchResult: List<Album>? = n
 
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
         val result = _searchResult[position] ?: return
-        with(holder) {
-            Glide.with(context).load(result.artworkUrl)
-                .apply(
-                    RequestOptions.bitmapTransform(RoundedCorners(14))
-                )
-                .into(binding.artwork)
-            binding.title.text = result.name
-            binding.releaseDate.text = result.releaseDate.toFormattedDate()
-            binding.root.setOnClickListener {
-                val navController = (context as Activity).findNavController(R.id.nav_host_fragment)
-                navController
-                    .navigate(
-                        R.id.search_result_dialog, bundleOf("result" to result)
-                    )
+        when (result) {
+            is Album -> {
+                with(holder) {
+                    Glide.with(context).load(result.artworkUrl)
+                        .apply(
+                            RequestOptions.bitmapTransform(RoundedCorners(14))
+                        )
+                        .into(binding.artwork)
+                    binding.title.text = result.name
+                    binding.releaseDate.text = result.releaseDate.toFormattedDate()
+                    binding.root.setOnClickListener {
+                        val navController =
+                            (context as Activity).findNavController(R.id.nav_host_fragment)
+                        navController
+                            .navigate(
+                                R.id.search_result_dialog, bundleOf("result" to result)
+                            )
+                    }
+                }
+            }
+            else -> {
             }
         }
     }
 
     override fun getItemCount(): Int = _searchResult.size
-    fun updateResults(searchResult: List<Album>? = null) {
+    fun updateResults(searchResult: List<Entity>? = null) {
         this._searchResult.clear()
         searchResult?.let {
             this._searchResult.addAll(it)
@@ -57,5 +65,3 @@ class SearchAdapter(private val context: Context, searchResult: List<Album>? = n
 }
 
 class SearchViewHolder(val binding: SearchResultBinding) : RecyclerView.ViewHolder(binding.root)
-
-class SearchResult(val resultCount: Int, val results: List<Album>)

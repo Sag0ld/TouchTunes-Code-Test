@@ -24,7 +24,6 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         binding.model = searchViewModel
 

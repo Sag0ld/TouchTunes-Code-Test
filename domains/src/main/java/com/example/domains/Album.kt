@@ -15,7 +15,7 @@ class Album(
     val price: Float,
     val currency: String,
     val copyright: String
-) : Parcelable {
+) : Parcelable, Entity() {
 
     constructor(parcel: Parcel) : this(
         parcel.readString().orEmpty(),

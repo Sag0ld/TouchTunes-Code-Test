@@ -6,7 +6,6 @@ import com.example.datasources.ItunesClientHelper
 import com.example.datasources.dtos.ItunesAlbum
 import com.example.domains.Album
 import com.example.domains.Resource
-import retrofit2.Callback
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.text.SimpleDateFormat
@@ -17,9 +16,9 @@ class SearchRepository(private val itunesClient: ItunesClientHelper) {
 
     suspend fun getAlbums(term: CharSequence): LiveData<Resource<List<Album>>> {
         try {
-            val albumResponse = itunesClient.searchForAlbums(term)
-            if (albumResponse.isSuccessful) {
-                val albums: List<Album>? = albumResponse.body()?.results?.map { itunesAlbum ->
+            val response = itunesClient.searchForAlbums(term)
+            if (response.isSuccessful) {
+                val albums: List<Album>? = response.body()?.results?.map { itunesAlbum ->
                     itunesAlbum.toAlbum()
                 }
                 return MutableLiveData(ResponseHandler().handleSuccess(albums.orEmpty()))

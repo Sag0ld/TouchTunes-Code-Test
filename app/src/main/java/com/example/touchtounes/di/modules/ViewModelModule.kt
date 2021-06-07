@@ -8,7 +8,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 val viewModelModule = module {
     viewModel {
         SearchViewModel(
-            itunesClient = get(),
+            searchService = get(),
             networkHelper = get()
         )
     }
