@@ -17,7 +17,7 @@ class SearchViewModel(
 ) : ViewModel() {
 
     val results = MutableLiveData<Resource<List<Album>?>>(
-        Resource.success(emptyList())
+        Resource.success(null)
     )
 
     private var latestTerm: CharSequence = ""

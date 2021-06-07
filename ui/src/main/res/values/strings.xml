@@ -4,4 +4,5 @@
     <string name="a11y_search_btn">Search Button</string>
     <string name="search_bar_hint">Band / Singer / Artist</string>
     <string name="close">Ok</string>
+    <string name="no_results">No results</string>
 </resources>

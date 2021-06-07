@@ -7,11 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.example.domains.Status
-import com.example.ui.R
 import com.example.ui.databinding.FragmentSearchBinding
 import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.inject
-import org.koin.core.component.inject
 
 class SearchFragment : Fragment() {
 
@@ -42,17 +40,23 @@ class SearchFragment : Fragment() {
                     view?.let {
                         showErrorMessage(results.message, it)
                         binding.refreshLayout.isRefreshing = false
+                        binding.nothingFound.visibility = View.INVISIBLE
                     }
                 }
                 Status.LOADING -> {
+                    binding.nothingFound.visibility = View.INVISIBLE
                     binding.refreshLayout.isRefreshing = true
                 }
                 Status.SUCCESS -> {
                     binding.refreshLayout.isRefreshing = false
                     if (results.data.isNullOrEmpty()) {
                         adapter.updateResults()
+                        results.data?.isEmpty()?.let {
+                            binding.nothingFound.visibility = View.VISIBLE
+                        }
                     } else {
                         adapter.updateResults(results.data)
+                        binding.nothingFound.visibility = View.INVISIBLE
                     }
                     binding.searchResults.smoothScrollToPosition(0);
                 }

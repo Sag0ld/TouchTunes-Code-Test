@@ -19,10 +19,10 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:paddingHorizontal="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:iconifiedByDefault="false"
-            app:defaultQueryHint="@string/search_bar_hint"
             app:OnQueryTextListener="@{model.onQueryTextListener(searchBar)}"
+            app:defaultQueryHint="@string/search_bar_hint"
+            app:iconifiedByDefault="false"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,14 +37,36 @@
             app:layout_constraintTop_toBottomOf="@id/search_bar"
             app:setOnRefreshListener="@{model.onRefreshListener()}">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/search_results"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="16dp"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                app:spanCount="2" />
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/search_results"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="16dp"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:spanCount="2" />
+
+                <TextView
+                    android:id="@+id/nothing_found"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_results"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
