@@ -22,7 +22,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:iconifiedByDefault="false"
             app:defaultQueryHint="@string/search_bar_hint"
-            app:OnQueryTextListener="@{model.onQueryTextListener()}"
+            app:OnQueryTextListener="@{model.onQueryTextListener(searchBar)}"
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

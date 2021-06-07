@@ -1,5 +1,6 @@
 package com.example.ui.search
 
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -21,9 +22,10 @@ class SearchViewModel(
 
     private var latestTerm: CharSequence = ""
 
-    fun onQueryTextListener() = object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+    fun onQueryTextListener(view: SearchView) = object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(query: String?): Boolean {
             search(query.orEmpty())
+            view.clearFocus()
             return true
         }
 
